@@ -15,8 +15,8 @@ commit;
 
 select t1.manager_ldap,
        t1.manager_name,
-	   t2.LDAP_LINE_MANAGER,
-	   trim(t3.CONT_VALUE) as "CL_PHONE_LINE_MANAGER"
+       t2.LDAP_LINE_MANAGER,
+       trim(t3.CONT_VALUE) as "CL_PHONE_LINE_MANAGER"
   into #MANAGER_ADRESS
   from dialogsBase      as t1
   join empData          as t2 on t2.manager_ldap = t1.manager_ldap
@@ -31,10 +31,10 @@ commit;
 
 select month(t2.date_create)   as "MONTH"
        t2.manager_ldap,
-	   t1.RPBranch,
-	   t1.RPName,
-	   sum(t1.totalDialogsNum) as "Sum_dialogs",
-	   sum(t1.totalAccepted)   as "Sum_accepted"
+       t1.RPBranch,
+       t1.RPName,
+       sum(t1.totalDialogsNum) as "Sum_dialogs", 
+       sum(t1.totalAccepted)   as "Sum_accepted"
   into #ALL_DIALOGS	   
   from dialogsBase as t1
   join #WORK_DAYS  as t2 on t2.date_create  = t1.date_create
