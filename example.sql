@@ -63,10 +63,10 @@ select t1.MONTH,
        t1.RPName,
        t1.Sum_dialogs,
        t1.Sum_accepted,
-	   t1.PART_ACCEPTED,
-	   rank () over (partiton by t1.RPBranch, t1.RPName order by t1.PART_ACCEPTED asc) as "WORTH_MANAGER"
-	into #TURNIRKA
-    from #PART_DIALOGS as t1
+       t1.PART_ACCEPTED,
+       rank () over (partiton by t1.RPBranch, t1.RPName order by t1.PART_ACCEPTED asc) as "WORTH_MANAGER"
+  into #TURNIRKA
+  from #PART_DIALOGS as t1
 ;
 commit;
 
@@ -74,13 +74,13 @@ commit;
 
 select t2.manager_ldap          as "Логин менеджера",
        t2.manager_name          as "ФИО менеджера",
-	   t2.LDAP_LINE_MANAGER     as "Логин линейного руководителя",
-	   t2.CL_PHONE_LINE_MANAGER as "Основной телефон руководителя",
-	   t1.RPBranch              as "Бранч РП",
-	   t1.RPName                as "Наименование РП", 
-	   t1.Sum_dialogs           as "Кол-во диалогов всего",
-	   t1.Sum_accepted          as "Кол-во принятых диалогов",
-	   t1.PART_ACCEPTED         as "Доля принятых диалогов"
+       t2.LDAP_LINE_MANAGER     as "Логин линейного руководителя",
+       t2.CL_PHONE_LINE_MANAGER as "Основной телефон руководителя",
+       t1.RPBranch              as "Бранч РП",
+       t1.RPName                as "Наименование РП", 
+       t1.Sum_dialogs           as "Кол-во диалогов всего",
+       t1.Sum_accepted          as "Кол-во принятых диалогов",
+       t1.PART_ACCEPTED         as "Доля принятых диалогов"
   from #TURNIRKA        as t1
   join #MANAGER_ADRESS  as t2 on t2.manager_ldap = t1.manager_ldap
  where WORTH_MANAGER <= 5
