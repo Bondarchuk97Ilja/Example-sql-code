@@ -6,7 +6,7 @@ select t2.manager_ldap,
   from dialogsBase as t1
   join empHistData as t2 on t2.date_create  = t1.date_create
                         and t2.manager_ldap = t1.manager_ldap
-						and date(t2.date_create) between dateformat(today(),'yyyy-mm-01') and today()
+			and date(t2.date_create) between dateformat(today(),'yyyy-mm-01') and today()
  where t2.PEOP_STATE not in ('болеет', 'в отпуске', 'в командировке', 'отсутствует') 
 ;
 commit;
